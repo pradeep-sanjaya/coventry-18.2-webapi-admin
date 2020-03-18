@@ -9,13 +9,22 @@ export const userActions = {
     getAll
 };
 
-function login(username, password) {
-    return dispatch => {
-        dispatch(request({ username }));
+function login(email, password) {
 
-        userService.login(username, password)
+    console.log("--- userActions.login ---");
+    console.log("email: " + email, ", password: " + password);
+
+    return dispatch => {
+
+        console.log("return dispatch");
+
+        dispatch(request({ email }));
+
+        userService.login(email, password)
             .then(
                 user => {
+                    console.log("after user userService.login call user:" + user);
+
                     dispatch(success(user));
                     history.push('/');
                 },

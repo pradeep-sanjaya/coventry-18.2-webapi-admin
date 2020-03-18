@@ -8,12 +8,12 @@ export const userService = {
     getAll
 };
 
-function login(username, password) {
+function login(email, password) {
 
     return new Promise((resolve, reject) => {
 
         var data = {
-            username: username,
+            email: email,
             password: password
         };
 
@@ -28,19 +28,23 @@ function login(username, password) {
             .then((res) => {
                 console.log("RESPONSE RECEIVED: ", res);
 
-                if (res.data.status == 200 && res.data.user.accessToken != undefined) {
+                let user = res.data.data;
 
-                    let user = {
-                        _id: res.data.user._id,
-                        firstName: res.data.user.firstName,
-                        lastName: res.data.user.lastName,
-                        accessToken: res.data.user.accessToken
+                if (res.data.status == 200 && user != undefined) {
+
+                    let userObj = {
+                        _id: user._id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        accessToken: user.accessToken
                     }
 
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('user', JSON.stringify(user));
+                    localStorage.setItem('user', JSON.stringify(userObj));
 
-                    return Promise.resolve(JSON.stringify(user));
+                    console.log("before return userObj: " + JSON.stringify(userObj));
+
+                    return userObj;
 
                 } else {
                     return Promise.reject(res.data.message);
@@ -68,26 +72,4 @@ function getAll() {
     };
 
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
-}
-
-function handleResponse(response) {
-
-    console.log('--- handleResponse ---');
-    console.log('response' + response);
-
-    const data = response.data;
-
-    if (!response.ok) {
-        if (response.status === 401) {
-            // auto logout if 401 response returned from api
-            logout();
-            location.reload(true);
-        }
-
-        const error = (data && data.message) || response.statusText;
-        return Promise.reject(error);
-    }
-
-    return Promise.resolve(data.data);
-
 }

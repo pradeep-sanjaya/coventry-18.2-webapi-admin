@@ -7,6 +7,7 @@ import { alertActions, userActions } from '../actions';
 import { PrivateRoute } from '../components';
 import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
+import { ProductsPage } from '../ProductPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -38,8 +39,12 @@ class App extends React.Component {
                             </div>
                             <div id="navbar" className="navbar-collapse collapse">
                                 <ul className="nav navbar-nav">
-                                    <li className="active"><a href="#">Home</a></li>
-                                    <li><Link to="/">Products</Link></li>
+                                    <li className="active">
+                                        <Link to="/">Home</Link>
+                                    </li>                         
+                                </ul>
+                                <ul className="nav navbar-nav">                                
+                                    <li><Link to="/Products">Products</Link></li>
                                 </ul>
                                 <ul className="nav navbar-nav navbar-right">
                                     {this.props.user ?
@@ -61,6 +66,7 @@ class App extends React.Component {
 
                                 <div>
                                     <PrivateRoute exact path="/" component={HomePage} />
+                                    <PrivateRoute exact path="/Products" component={ProductsPage} />
                                     <Route path="/login" component={LoginPage} />
                                 </div>
 

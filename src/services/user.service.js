@@ -1,11 +1,9 @@
 import axios from "axios";
-import config from 'config';
 import { authHeader } from '../helpers';
 
 export const userService = {
     login,
-    logout,
-    getAll
+    logout
 };
 
 function login(email, password) {
@@ -63,13 +61,4 @@ function login(email, password) {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
-}
-
-function getAll() {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }

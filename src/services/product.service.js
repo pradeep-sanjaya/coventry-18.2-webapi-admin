@@ -1,5 +1,4 @@
 import axios from "axios";
-import config from 'config';
 import { authHeader } from '../helpers';
 
 export const productService = {

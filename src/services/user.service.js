@@ -24,7 +24,7 @@ function login(email, password) {
             }
         };
 
-        axios.post('http://localhost:4000/api/v1/auth/login', data, axiosConfig)
+        axios.post('https://webapi-backend.herokuapp.com/api/v1/auth/login', data, axiosConfig)
             .then((res) => {
                 console.log("RESPONSE RECEIVED: ", res);
 

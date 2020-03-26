@@ -7,7 +7,7 @@ export const productService = {
 };
 
 function getAll() {
-    
+
     // const requestOptions = {
     //     method: 'GET',
     //     headers: authHeader()
@@ -15,12 +15,12 @@ function getAll() {
 
     return async (dispatch) => {
         try {
-            axios.get("https://productsnew3.free.beeceptor.com").then(
+            axios.get("https://webapi-backend.herokuapp.com/api/v1/products").then(
                 (data) => {
                     console.log(data);
                     dispatch(getAll(data.data.products));
                 }
             );
-        } catch (err) {}
+        } catch (err) { }
     };
 }
